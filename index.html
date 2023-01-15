@@ -13,10 +13,11 @@
     <h1 class="text-center text-light fw-bold my-2">Phone Finder</h1>
     <div class="container w-50 mx-auto">
         <input class="w-75 p-2 m-3 fs-5 fw-semibold rounded" id="search-field" type="text" placeholder="Search your dream phone">
-        <button class="btn btn-outline-primary px-3 py-2 fs-5 fw-bold rounded-3" id="search-btn">Search</button>
+        <button onclick="loadData()" class="btn btn-outline-primary px-3 py-2 fs-5 fw-bold rounded-3" id="search-btn">Search</button>
     </div>
     <div id="detail-info"></div>
-    <div id="container"></div>
+    <div id="container" class="container row row-cols-1 row-cols-md-3 g-4"></div>
+    <div id="no-result" class="d-block"><h2 class="text-bold text-danger text-center mx-auto my-5">No Result Found</h2></div>
     
     <!-- Custom JavaScript -->
     <script src="JS/phone-search.js"></script>
