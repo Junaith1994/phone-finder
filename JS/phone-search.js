@@ -7,7 +7,6 @@ const loadData = () => {
     
     // Clearing input field
     document.getElementById('search-field').value = '';
-    // document.getElementById('detail-info').textContent = '';
 }
 
 const displaySearchResult = results => {
@@ -15,7 +14,8 @@ const displaySearchResult = results => {
     const containerDiv = document.getElementById('container');
     // Clearing Previous Result
     containerDiv.textContent = '';
-
+    
+    // Showing 'No Result Found' message 
     if(results.length === 0) {
         console.log(results.length);
         document.getElementById('no-result').setAttribute('class', 'd-block');
@@ -25,7 +25,7 @@ const displaySearchResult = results => {
         document.getElementById('no-result').setAttribute('class', 'd-none');
     }
     results.forEach(result => {
-        // console.log(result);
+        // console.log(result.length);
         const phoneCard = document.createElement('div');
         // phoneCard.classList.add('')
         phoneCard.innerHTML = ` 
@@ -66,6 +66,7 @@ const displayDetailInfo = details => {
             </p>
         </div>
     `;
+    // Adding Sensors Info to the mainfeatures of the phone details 
     const p = document.createElement('p');
     document.getElementById('main-features').appendChild(p);
     const sensors = details.mainFeatures.sensors;
@@ -77,4 +78,21 @@ const displayDetailInfo = details => {
         p.appendChild(sensonrsInfo)
         // console.log(sensor);
     }
+    // Adding others info to the phone details
+    const othersInfo = document.createElement('div');
+    detailInfoDiv.appendChild(othersInfo);
+    const others = details.others;
+    othersInfo.innerHTML = `
+        <div class="card-body">    
+            <h5 class="card-title">Others:</h5>
+            <p class="card-text">
+                <p><b>Bluetooth:</b> ${others.Bluetooth}</p>
+                <p><b>GPS:</b> ${others.GPS}</p>
+                <p><b>NFC:</b> ${others.NFC}</p>
+                <p><b>Radio:</b> ${others.Radio}</p>
+                <p><b>USB:</b> ${others.USB}</p>
+                <p><b>WLAN:</b> ${others.WLAN}</p>
+            </p>
+        </div>    
+    `;
 }
