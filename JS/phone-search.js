@@ -1,4 +1,15 @@
+// function for spinner when loading data
+const spinner = show => {
+    if(show === true) {
+        document.getElementById('spinner').classList.remove('d-none');
+    }
+    else {
+        document.getElementById('spinner').classList.add('d-none');
+    }
+}
+
 const loadData = () => {
+    spinner(true); // Loading Spinner
     const searchText = document.getElementById('search-field').value;
     // Fetching data
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
@@ -19,6 +30,7 @@ const displaySearchResult = results => {
     if(results.length === 0) {
         console.log(results.length);
         document.getElementById('no-result').setAttribute('class', 'd-block');
+        spinner(false); // Loading Spinner
         // document.getElementById('detail-info').textContent = '';
     }
     else {
@@ -39,6 +51,7 @@ const displaySearchResult = results => {
             </div>
         `;
         containerDiv.appendChild(phoneCard);
+        spinner(false); // Loading Spinner
     })
 }
 

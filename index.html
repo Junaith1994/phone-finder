@@ -11,9 +11,16 @@
 <body style="background-color: #00203FFF">
     <!-- Title of the site -->
     <h1 class="text-center text-light fw-bold my-2">Phone Finder</h1>
-    <div class="container w-50 mx-auto">
+    <!-- Search box and Search Button -->
+    <div class="container w-50 mx-auto text-center">
         <input class="w-75 p-2 m-3 fs-5 fw-semibold rounded" id="search-field" type="text" placeholder="Search your dream phone">
-        <button onclick="loadData()" class="btn btn-outline-primary px-3 py-2 fs-5 fw-bold rounded-3" id="search-btn">Search</button>
+        <button onclick="loadData()" class="btn btn-outline-primary px-3 py-2 fs-5 fw-bold rounded-3 d-md-inline" id="search-btn">Search</button>
+    </div>
+    <!-- Loading Spinner -->
+    <div class="d-flex justify-content-center">
+        <div id="spinner" class="spinner-border text-light d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
     <div id="detail-info"></div>
     <div id="container" class="container row row-cols-1 row-cols-md-3 g-4"></div>
