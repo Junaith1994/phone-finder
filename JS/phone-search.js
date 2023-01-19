@@ -28,7 +28,7 @@ const displaySearchResult = results => {
     
     // Showing 'No Result Found' message 
     if(results.length === 0) {
-        console.log(results.length);
+        // console.log(results.length);
         document.getElementById('no-result').setAttribute('class', 'd-block');
         spinner(false); // Loading Spinner
         // document.getElementById('detail-info').textContent = '';
@@ -36,10 +36,15 @@ const displaySearchResult = results => {
     else {
         document.getElementById('no-result').setAttribute('class', 'd-none');
     }
-    results.forEach(result => {
-        // console.log(result.length);
+
+    // Display only 20 phones
+    const phoneSliced = results.slice(0, 20);
+    console.log('Total numbers '+results.length);
+    console.log('Phone sliced '+phoneSliced.length);
+    
+    phoneSliced.forEach(result => {
+        // console.log(result);
         const phoneCard = document.createElement('div');
-        // phoneCard.classList.add('')
         phoneCard.innerHTML = ` 
             <div class="card">
                 <div class="card-body">
@@ -53,8 +58,34 @@ const displaySearchResult = results => {
         containerDiv.appendChild(phoneCard);
         spinner(false); // Loading Spinner
     })
+    // Enabling "Show All" Button
+    document.getElementById('show-btn-container').classList.remove('d-none');
+    
+    // Display Remaining Phones
+    document.getElementById('showAll-btn').addEventListener('click', () => {
+        const remainingPhones = results.slice(20);
+        console.log('Remaining phones '+remainingPhones.length);
+        remainingPhones.forEach(result => {
+            const phoneCard = document.createElement('div');
+            phoneCard.innerHTML = ` 
+                <div class="card">
+                    <div class="card-body">
+                        <img src="${result.image}" class="w-25 card-img-top" alt="phone-image">
+                        <h5 class="card-title">Model: ${result.phone_name}</h5>
+                        <h5 class="card-text">Brand: ${result.brand}</h5>
+                        <button onclick="loadDetailInfo('${result.slug}')" class="btn btn-primary fw-semibold" type="submit">Details</button>
+                    </div>
+                </div>
+            `;
+            containerDiv.appendChild(phoneCard);
+            spinner(false); // Loading Spinner
+        })
+        // Disabling "Show All" Button
+        document.getElementById('showAll-btn').setAttribute('disabled', true);
+    })
 }
 
+// Loading Detail info of the specific phone
 const loadDetailInfo = phoneId => {
     // Fetching phone detail url
     fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
@@ -64,7 +95,6 @@ const loadDetailInfo = phoneId => {
 
 const displayDetailInfo = details => {
     const detailInfoDiv = document.getElementById('detail-info');
-    // console.log(details);
     detailInfoDiv.classList.add('card', 'mb-3')
     
     detailInfoDiv.innerHTML = `
