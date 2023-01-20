@@ -1,3 +1,4 @@
+const reloadPage = () => window.location.reload();
 // function for spinner when loading data
 const spinner = show => {
     if(show === true) {
@@ -8,20 +9,33 @@ const spinner = show => {
     }
 }
 
+// Function for 'Show All' button
+const enableShowAllButton = (enable) => {
+    if(enable === true) {
+        document.getElementById('showAll-btn').removeAttribute('disabled');
+    }
+    else {
+        document.getElementById('showAll-btn').setAttribute('disabled', true);
+    }
+}
+
 const loadData = () => {
+    // location.roload();
     spinner(true); // Loading Spinner
     const searchText = document.getElementById('search-field').value;
     // Fetching data
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     .then(res => res.json())
     .then(data => displaySearchResult(data.data))
-    
+
     // Clearing input field
     document.getElementById('search-field').value = '';
+    
+    // Enabling "Show All" Button
+    enableShowAllButton(true);
 }
 
 const displaySearchResult = results => {
-    // console.log(results);
     const containerDiv = document.getElementById('container');
     // Clearing Previous Result
     containerDiv.textContent = '';
@@ -64,11 +78,11 @@ const displaySearchResult = results => {
     // Display Remaining Phones
     document.getElementById('showAll-btn').addEventListener('click', () => {
         const remainingPhones = results.slice(20);
-        console.log('Remaining phones '+remainingPhones.length);
+        // console.log(remainingPhones);
         remainingPhones.forEach(result => {
             const phoneCard = document.createElement('div');
             phoneCard.innerHTML = ` 
-                <div class="card">
+                <div id="remaining-phones" class="card">
                     <div class="card-body">
                         <img src="${result.image}" class="w-25 card-img-top" alt="phone-image">
                         <h5 class="card-title">Model: ${result.phone_name}</h5>
@@ -81,7 +95,7 @@ const displaySearchResult = results => {
             spinner(false); // Loading Spinner
         })
         // Disabling "Show All" Button
-        document.getElementById('showAll-btn').setAttribute('disabled', true);
+        enableShowAllButton(false);
     })
 }
 
