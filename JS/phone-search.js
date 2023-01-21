@@ -1,4 +1,3 @@
-const reloadPage = () => window.location.reload();
 // function for spinner when loading data
 const spinner = show => {
     if(show === true) {
@@ -20,7 +19,6 @@ const enableShowAllButton = (enable) => {
 }
 
 const loadData = () => {
-    // location.roload();
     spinner(true); // Loading Spinner
     const searchText = document.getElementById('search-field').value;
     // Fetching data
@@ -45,7 +43,6 @@ const displaySearchResult = results => {
         // console.log(results.length);
         document.getElementById('no-result').setAttribute('class', 'd-block');
         spinner(false); // Loading Spinner
-        // document.getElementById('detail-info').textContent = '';
     }
     else {
         document.getElementById('no-result').setAttribute('class', 'd-none');
@@ -53,8 +50,6 @@ const displaySearchResult = results => {
 
     // Display only 20 phones
     const phoneSliced = results.slice(0, 20);
-    console.log('Total numbers '+results.length);
-    console.log('Phone sliced '+phoneSliced.length);
     
     phoneSliced.forEach(result => {
         // console.log(result);
@@ -78,7 +73,6 @@ const displaySearchResult = results => {
     // Display Remaining Phones
     document.getElementById('showAll-btn').addEventListener('click', () => {
         const remainingPhones = results.slice(20);
-        // console.log(remainingPhones);
         remainingPhones.forEach(result => {
             const phoneCard = document.createElement('div');
             phoneCard.innerHTML = ` 
@@ -114,6 +108,7 @@ const displayDetailInfo = details => {
     detailInfoDiv.innerHTML = `
         <div class="card-body">
             <img src="${details.image}" class="w-25 card-img-top mx-auto d-block" alt="phone-image">
+            <h5 class="card-title">Model: ${details.name}</h5>
             <h5 class="card-title">${details.releaseDate? details.releaseDate: 'No release date found'}</h5>
             <p id="main-features" class="card-text">
                 <p><b>Chip Set:</b> ${details.mainFeatures.chipSet}</p>
@@ -132,8 +127,7 @@ const displayDetailInfo = details => {
         const sensonrsInfo = document.createElement('span');
         sensonrsInfo.classList.add('px-2');
         sensonrsInfo.innerText = sensor;
-        p.appendChild(sensonrsInfo)
-        // console.log(sensor);
+        p.appendChild(sensonrsInfo);
     }
     // Adding others info to the phone details
     const othersInfo = document.createElement('div');
